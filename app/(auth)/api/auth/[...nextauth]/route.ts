@@ -1,12 +1,13 @@
+// Import required dependencies
 import bcrypt from "bcrypt";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import prisma from "@/lib/prismadb";
-import { SessionStrategy } from "next-auth"; // Import the correct type
+import { SessionStrategy } from "next-auth";
 
 // Define authOptions
-const authOptions = {
+export const authOptions = {
   adapter: PrismaAdapter(prisma) as any,
   providers: [
     CredentialsProvider({
@@ -49,7 +50,7 @@ const authOptions = {
   },
 
   session: {
-    strategy: "jwt" as SessionStrategy, // Explicitly set type to SessionStrategy
+    strategy: "jwt" as SessionStrategy,
   },
 
   secret: process.env.NEXTAUTH_SECRET,
