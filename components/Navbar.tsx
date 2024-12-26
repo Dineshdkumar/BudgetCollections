@@ -80,7 +80,10 @@ const Navbar: React.FC<NavbarProps> = ({ user }) => {
 
         {/* USER MENU */}
         {openUserMenu && (
-          <div className="absolute right-0 top-[50px] w-40 bg-gray-800 shadow-lg rounded-md p-4 text-white max-md:hidden text-center">
+          <div
+            style={{ zIndex: 2 }}
+            className="absolute right-0 top-[50px] w-40 bg-gray-800 shadow-lg rounded-md p-4 text-white max-md:hidden text-center"
+          >
             {!user ? (
               <ul>
                 <Link onClick={() => setOpenUserMenu(false)} href={"/sign-in"}>

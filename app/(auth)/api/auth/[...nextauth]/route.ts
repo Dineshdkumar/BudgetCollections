@@ -1,4 +1,3 @@
-// Import required dependencies
 import bcrypt from "bcrypt";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -6,8 +5,8 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import prisma from "@/lib/prismadb";
 import { SessionStrategy } from "next-auth";
 
-// Define authOptions
-export const authOptions = {
+// Define the NextAuth handler with configuration
+const handler = NextAuth({
   adapter: PrismaAdapter(prisma) as any,
   providers: [
     CredentialsProvider({
@@ -54,10 +53,7 @@ export const authOptions = {
   },
 
   secret: process.env.NEXTAUTH_SECRET,
-};
+});
 
-// Define the Next.js API route handler for GET and POST requests
-const handler = NextAuth(authOptions);
-
-// Export the handler as GET and POST methods
+// Export the handler directly for GET and POST requests
 export { handler as GET, handler as POST };
