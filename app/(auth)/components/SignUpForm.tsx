@@ -1,3 +1,5 @@
+"use client";
+
 import { TbBracketsAngle } from "react-icons/tb";
 import Input from "@/components/ui/Input";
 import { useState } from "react";
