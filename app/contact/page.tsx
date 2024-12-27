@@ -17,11 +17,13 @@ const Page = () => {
     comments: "",
   });
 
-  const handleChange = (e) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
-  const handleFormSubmit = async (e) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // Send Email via EmailJS
@@ -129,7 +131,7 @@ const Page = () => {
                           id="comments"
                           name="comments"
                           className="block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500 sm:text-sm"
-                          rows="4"
+                          rows={4} // Use number for rows
                           value={formData.comments}
                           onChange={handleChange}
                           required

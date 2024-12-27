@@ -1,8 +1,12 @@
 import Link from "next/link";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { useShoppingCart } from "use-shopping-cart";
+import { FC } from "react";
+interface CartIconProps extends React.HTMLProps<SVGElement> {
+  className?: string;
+}
 
-const CartIcon = () => {
+const CartIcon: FC<CartIconProps> = ({ className, ...props }) => {
   const { cartDetails } = useShoppingCart();
   const cartItems = Object.values(cartDetails ?? {});
   return (

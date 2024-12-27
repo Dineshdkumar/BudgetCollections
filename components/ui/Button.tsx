@@ -1,5 +1,3 @@
-"use client";
-
 import { useFormStatus } from "react-dom";
 
 interface ButtonProps {
@@ -7,13 +5,15 @@ interface ButtonProps {
   children?: React.ReactNode;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   disabled?: boolean;
+  className?: string; // Add className prop
 }
 
 const Button: React.FC<ButtonProps> = ({
-  type,
+  type = "button", // Default to "button" if not provided
   children,
   onClick,
   disabled,
+  className, // Receive the className prop
 }) => {
   const { pending } = useFormStatus();
 
@@ -23,11 +23,11 @@ const Button: React.FC<ButtonProps> = ({
       onClick={onClick}
       type={type}
       aria-disabled={pending}
-      className="bg-gray-700 text-white py-1 px-3 shadow rounded-md"
+      className={`bg-gray-700 text-white py-1 px-3 shadow rounded-md ${className}`} // Use className prop
     >
       {children}
     </button>
   );
 };
 
-export default Button
+export default Button;
