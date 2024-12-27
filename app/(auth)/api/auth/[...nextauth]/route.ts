@@ -1,15 +1,15 @@
-// api/auth/[...nextauth]/route.ts
+// app/(auth)/api/auth/[...nextauth]/route.ts
 
 import bcrypt from "bcrypt";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { PrismaAdapter } from "@auth/prisma-adapter"; // Use the adapter
-import prisma from "@/lib/prismadb"; // Correct import of your Prisma client
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import prisma from "@/lib/prismadb";
 import { SessionStrategy } from "next-auth";
 
-// Type assertion to bypass the error temporarily
-export const authOptions = {
-  adapter: PrismaAdapter(prisma) as any, // Use 'as any' to suppress the type error temporarily
+// NextAuth handler directly with session options inside it
+const handler = NextAuth({
+  adapter: PrismaAdapter(prisma) as any, // Type assertion to suppress type errors
   providers: [
     CredentialsProvider({
       name: "credentials",
@@ -52,8 +52,7 @@ export const authOptions = {
     strategy: "jwt" as SessionStrategy,
   },
   secret: process.env.NEXTAUTH_SECRET,
-};
+});
 
-const handler = NextAuth(authOptions);
-
-export { handler as GET, handler as POST }; // Export the handler
+// Export the handler as GET and POST
+export { handler as GET, handler as POST };
