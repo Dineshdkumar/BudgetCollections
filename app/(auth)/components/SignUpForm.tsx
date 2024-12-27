@@ -1,5 +1,3 @@
-"use client";
-
 import { TbBracketsAngle } from "react-icons/tb";
 import Input from "@/components/ui/Input";
 import { useState } from "react";
@@ -12,6 +10,11 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
 const SignUpForm = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const session = useSession();
   const ref = useRef<HTMLFormElement>(null);
@@ -24,9 +27,21 @@ const SignUpForm = () => {
     }
   }, [session.status, router]);
 
-  const handleSubmit = async (formData: FormData) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
     setIsSubmitting(true);
-    const result = await createUser(formData);
+
+    const formDataObject = new FormData(ref.current as HTMLFormElement);
+    const result = await createUser(formDataObject);
 
     if (result?.existingUser) {
       toast.error(result.existingUser);
@@ -47,34 +62,34 @@ const SignUpForm = () => {
           <TbBracketsAngle />
         </div>
 
-        <form
-          ref={ref}
-          onSubmit={(e) => {
-            e.preventDefault();
-            const formData = new FormData(e.currentTarget);
-            handleSubmit(formData);
-          }}
-          className="space-y-6 mb-3"
-        >
+        <form ref={ref} onSubmit={handleSubmit} className="space-y-6 mb-3">
           <Input
             type="text"
             id="name"
             label="Name"
+            value={formData.name}
+            onChange={handleChange}
             disabled={isSubmitting}
           />
           <Input
             type="email"
             id="email"
             label="Email"
+            value={formData.email}
+            onChange={handleChange}
             disabled={isSubmitting}
           />
           <Input
             type="password"
             id="password"
             label="Password"
+            value={formData.password}
+            onChange={handleChange}
             disabled={isSubmitting}
           />
-          <Button type="submit">Create Account</Button>
+          <Button type="submit" disabled={isSubmitting}>
+            Create Account
+          </Button>
         </form>
         <Link href={"/sign-in"}>
           <span className="mt-3 hover:underline">
