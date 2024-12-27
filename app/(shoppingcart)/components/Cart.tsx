@@ -110,7 +110,7 @@ const Cart = () => {
                   Shipping and taxes are calculated at checkout.
                 </p>
                 <div className="mt-6 w-full flex justify-center">
-                  <Button
+                  <button
                     onClick={(e) => {
                       e.preventDefault();
                       checkoutStore.setCheckout("checkout");
@@ -118,7 +118,7 @@ const Cart = () => {
                     className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition"
                   >
                     Proceed to Checkout
-                  </Button>
+                  </button>
                 </div>
               </div>
             )}

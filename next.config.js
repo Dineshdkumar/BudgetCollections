@@ -5,10 +5,10 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "files.stripe.com"
-      }
-    ]
-  }
-}
+        hostname: "files.stripe.com",
+      },
+    ],
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

@@ -1,8 +1,7 @@
-// getUserSession.tsx
-
+// In getUserSession.ts
 import { getServerSession } from "next-auth";
-import { GET } from "../api/auth/[...nextauth]/route"; // Import GET directly
+import { authOptions } from "../api/auth/[...nextauth]/route"; // Correctly import authOptions
 
 export default async function getUserSession() {
-  return await getServerSession(GET); // Use the GET handler directly
+  return await getServerSession(authOptions); // Use authOptions here
 }
