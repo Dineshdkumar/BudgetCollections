@@ -17,8 +17,24 @@ const ProductsCard = ({ product }: { product: ProductType }) => {
     toast.error("Please choose a size first");
   };
 
-  // Determine if the product is a pant based on the metadata
-  const isPant = product.metadata?.pant ?? false;
+  // Get the category from product metadata
+  const category = product.metadata?.category;
+
+  // Determine the size options based on the category
+  const getSizeOptions = (category: string | undefined) => {
+    switch (category) {
+      case "Pants":
+        return ["30", "32", "34", "36", "38"];
+      case "T-Shirts":
+      case "Formal Shirts":
+      case "Casual Shirts":
+        return ["Small", "Medium", "Large", "XL"];
+      default:
+        return [];
+    }
+  };
+
+  const sizeOptions = getSizeOptions(category);
 
   return (
     <div className="relative flex flex-col items-center bg-white p-4 shadow-md rounded-lg border border-gray-300 transition-transform transform hover:scale-105 overflow-hidden">
@@ -58,23 +74,12 @@ const ProductsCard = ({ product }: { product: ProductType }) => {
         className="p-2 border rounded-md w-full text-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none mb-3"
       >
         <option value="">Select Size</option>
-        {/* Show sizes based on whether it's a pant or not */}
-        {isPant ? (
-          <>
-            <option value="30">30</option>
-            <option value="32">32</option>
-            <option value="34">34</option>
-            <option value="36">36</option>
-            <option value="38">38</option>
-          </>
-        ) : (
-          <>
-            <option value="small">Small</option>
-            <option value="medium">Medium</option>
-            <option value="large">Large</option>
-            <option value="xl">XL</option>
-          </>
-        )}
+        {/* Display sizes based on category */}
+        {sizeOptions.map((size) => (
+          <option key={size} value={size}>
+            {size}
+          </option>
+        ))}
       </select>
 
       <AddToCart
