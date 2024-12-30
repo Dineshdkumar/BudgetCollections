@@ -1,3 +1,4 @@
+"use client";
 import Stripe from "stripe";
 
 export const FetchProducts = async () => {
@@ -54,6 +55,6 @@ export const FetchProducts = async () => {
     return products;
   } catch (error) {
     console.error("Error fetching products:", error);
-    return []; // Return an empty array or handle the error as needed
+    return [];
   }
 };

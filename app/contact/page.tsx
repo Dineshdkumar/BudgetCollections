@@ -6,7 +6,6 @@ import Input from "@/components/ui/Input";
 import Image from "next/image";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import emailjs from "emailjs-com";
 
 const Page = () => {
   const [formData, setFormData] = useState({
@@ -17,37 +16,73 @@ const Page = () => {
     comments: "",
   });
 
+  const [errors, setErrors] = useState({
+    email: "",
+    mobile: "",
+  });
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
+
+    // Clear the error message when the user starts typing
+    if (e.target.id === "email") {
+      setErrors((prev) => ({ ...prev, email: "" }));
+    } else if (e.target.id === "mobile") {
+      setErrors((prev) => ({ ...prev, mobile: "" }));
+    }
+  };
+
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
+  };
+
+  const validateMobile = (mobile: string) => {
+    const mobileRegex = /^[0-9]{10}$/;
+    return mobileRegex.test(mobile);
+  };
+
+  const handleBlur = (
+    e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { id, value } = e.target;
+
+    if (id === "email" && !validateEmail(value)) {
+      setErrors((prev) => ({
+        ...prev,
+        email: "Please enter a valid email address.",
+      }));
+    } else if (id === "mobile" && !validateMobile(value)) {
+      setErrors((prev) => ({
+        ...prev,
+        mobile: "Mobile number must be 10 digits.",
+      }));
+    } else {
+      setErrors((prev) => ({ ...prev, [id]: "" }));
+    }
   };
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Send Email via EmailJS
-    try {
-      await emailjs.send(
-        "your_service_id", // Replace with your EmailJS service ID
-        "your_template_id", // Replace with your EmailJS template ID
-        {
-          name: formData.name,
-          email: formData.email,
-          mobile: formData.mobile,
-          subject: formData.subject,
-          comments: formData.comments,
-        },
-        "ktjE1Kk_wg1H_PXtr" // Replace with your EmailJS user ID
-      );
+    // Check if all required fields are filled
 
+    // Ensure there are no errors before submitting
+    if (errors.email || errors.mobile) {
+      toast.error("Please correct the errors before submitting.");
+      return;
+    }
+
+    try {
       // Send WhatsApp Message
       const whatsappMessage = `Name: ${formData.name}%0AEmail: ${formData.email}%0AMobile: ${formData.mobile}%0ASubject: ${formData.subject}%0AComments: ${formData.comments}`;
-      const whatsappLink = `https://wa.me/916302944423?text=${whatsappMessage}`;
+      const whatsappLink = `https://wa.me/919491915275?text=${whatsappMessage}`;
       window.open(whatsappLink, "_blank");
 
       // Notify User
-      toast.success("Your message has been sent successfully!");
+      toast.success("Your message has been sent via WhatsApp!");
     } catch (error) {
       console.error("Error sending message:", error);
       toast.error("Failed to send your message. Please try again.");
@@ -97,8 +132,13 @@ const Page = () => {
                           label="Email"
                           value={formData.email}
                           onChange={handleChange}
+                          onBlur={handleBlur}
                           required
+                          error={errors.email}
                         />
+                        {errors.email && (
+                          <p className="text-red-500 text-sm">{errors.email}</p>
+                        )}
                       </div>
                       <div className="lg:col-span-6">
                         <Input
@@ -107,8 +147,15 @@ const Page = () => {
                           label="Mobile Number"
                           value={formData.mobile}
                           onChange={handleChange}
+                          onBlur={handleBlur}
                           required
+                          error={errors.mobile}
                         />
+                        {errors.mobile && (
+                          <p className="text-red-500 text-sm">
+                            {errors.mobile}
+                          </p>
+                        )}
                       </div>
                       <div className="lg:col-span-12">
                         <Input
@@ -131,7 +178,7 @@ const Page = () => {
                           id="comments"
                           name="comments"
                           className="block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500 sm:text-sm"
-                          rows={4} // Use number for rows
+                          rows={4}
                           value={formData.comments}
                           onChange={handleChange}
                           required
@@ -140,7 +187,7 @@ const Page = () => {
                     </div>
                     <div className="mt-6">
                       <Button type="submit" className="w-full py-3 text-lg">
-                        Send Message
+                        Send Message via WhatsApp
                       </Button>
                     </div>
                   </form>

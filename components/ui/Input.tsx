@@ -13,6 +13,10 @@ interface InputProps {
   ) => void;
   className?: string; // Add className prop
   required?: boolean;
+  error?: string;
+  onBlur?: (
+    e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -24,6 +28,8 @@ const Input: React.FC<InputProps> = ({
   value, // Receive the value prop
   onChange, // Receive the onChange prop
   required = false, // Set default value to false if not provided
+  error,
+  onBlur,
 }) => {
   return (
     <div>
@@ -43,7 +49,9 @@ const Input: React.FC<InputProps> = ({
             disabled && "opacity-50 cursor-default",
             className // Apply the custom className
           )}
+          onBlur={onBlur}
         />
+        {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
       </div>
     </div>
   );

@@ -14,7 +14,7 @@ const Hero = () => {
         {/* Hero Swiper */}
         <Swiper
           modules={[Autoplay, Pagination]}
-          autoplay={{ delay: 5000 }}
+          autoplay={{ delay: 5000, disableOnInteraction: false }}
           speed={500}
           pagination={{ clickable: true }}
           spaceBetween={20}
@@ -24,21 +24,21 @@ const Hero = () => {
           <SwiperSlide>
             <img
               src="/homeImg1.jpg"
-              className="h-full w-full object-cover transition-transform duration-500 ease-in-out transform hover:scale-105"
+              className="h-full w-full object-cover object-top transition-transform duration-500 ease-in-out transform hover:scale-105"
               alt="Hero Image 1"
             />
           </SwiperSlide>
           <SwiperSlide>
             <img
               src="/homeImg2.jpg"
-              className="h-full w-full object-cover transition-transform duration-500 ease-in-out transform hover:scale-105"
+              className="h-full w-full object-cover object-top transition-transform duration-500 ease-in-out transform hover:scale-105"
               alt="Hero Image 2"
             />
           </SwiperSlide>
         </Swiper>
 
         {/* Centered Text */}
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center z-10">
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center z-10 md:top-[30%] md:right-[10%] md:transform-none md:-translate-x-0 md:-translate-y-0">
           <h1 className="text-3xl md:text-5xl font-bold text-white drop-shadow-md">
             Welcome to Our Store
           </h1>

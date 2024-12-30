@@ -30,7 +30,7 @@ const AddToCart = ({
   return (
     <button
       className={`w-full flex items-center justify-center gap-2 bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-all ${
-        !sizeSelect ? "opacity-50 cursor-not-allowed" : ""
+        !sizeSelect ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
       }`}
       onClick={() => {
         if (!sizeSelect && onClick) {

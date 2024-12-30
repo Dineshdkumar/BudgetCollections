@@ -17,7 +17,6 @@ import WishlistIcon from "@/app/(wishlist)/components/WishlistIcon";
 interface NavbarProps {
   user: User;
 }
-
 const Navbar: React.FC<NavbarProps> = ({ user }) => {
   const [openMobileMenu, setOpenMobileMenu] = useState(false);
   const [openUserMenu, setOpenUserMenu] = useState(false);
@@ -48,7 +47,7 @@ const Navbar: React.FC<NavbarProps> = ({ user }) => {
             </div>
           </Link>
 
-          {/* Navigation Links */}
+          {/* Navigation Links for Desktop */}
           <ul className="flex gap-10 hidden md:flex">
             {mainLinks.map((link, index) => (
               <Link key={index} href={link.route}>
@@ -82,56 +81,71 @@ const Navbar: React.FC<NavbarProps> = ({ user }) => {
               )}
             </div>
           </div>
-
-          {/* USER MENU */}
-          {openUserMenu && (
-            <div
-              style={{ zIndex: 2 }}
-              className="absolute right-0 top-[70px] w-40 bg-white shadow-lg rounded-md p-4 text-gray-800 max-md:hidden text-center"
-            >
-              {!user ? (
-                <ul>
-                  <Link
-                    onClick={() => setOpenUserMenu(false)}
-                    href={"/sign-in"}
-                  >
-                    <li className="py-2 hover:bg-purple-200 rounded-md">
-                      Log In
-                    </li>
-                  </Link>
-                  <Link
-                    onClick={() => setOpenUserMenu(false)}
-                    href={"/sign-up"}
-                  >
-                    <li className="py-2 hover:bg-purple-200 rounded-md">
-                      Sign Up
-                    </li>
-                  </Link>
-                </ul>
-              ) : (
-                <ul>
-                  {userLinks.map((link, index) => (
-                    <Link
-                      onClick={() => setOpenUserMenu(false)}
-                      key={index}
-                      href={link.route}
-                    >
-                      <li className="py-2 hover:bg-purple-200 rounded-md">
-                        {link.label}
-                      </li>
-                    </Link>
-                  ))}
-                  <li
-                    className="cursor-pointer py-2 hover:bg-purple-200 rounded-md"
-                    onClick={() => signOut()}
-                  >
-                    Sign Out
-                  </li>
-                </ul>
-              )}
-            </div>
-          )}
         </div>
+
+        {/* Mobile Menu */}
+        {openMobileMenu && (
+          <div
+            className="bg-white shadow-md absolute top-[70px] left-0 w-full md:hidden z-10"
+            style={{ animation: "fadeIn 0.3s ease-in-out" }}
+          >
+            <ul className="flex flex-col items-start p-4 gap-4">
+              {mainLinks.map((link, index) => (
+                <Link key={index} href={link.route}>
+                  <li
+                    className="text-gray-800 text-lg font-medium w-full hover:bg-purple-200 p-2 rounded-md"
+                    onClick={() => setOpenMobileMenu(false)}
+                  >
+                    {link.label}
+                  </li>
+                </Link>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {/* USER MENU */}
+        {openUserMenu && (
+          <div
+            style={{ zIndex: 2 }}
+            className="absolute right-0 top-[70px] w-40 bg-white shadow-lg rounded-md p-4 text-gray-800 max-md:hidden text-center"
+          >
+            {!user ? (
+              <ul>
+                <Link onClick={() => setOpenUserMenu(false)} href={"/sign-in"}>
+                  <li className="py-2 hover:bg-purple-200 rounded-md">
+                    Log In
+                  </li>
+                </Link>
+                <Link onClick={() => setOpenUserMenu(false)} href={"/sign-up"}>
+                  <li className="py-2 hover:bg-purple-200 rounded-md">
+                    Sign Up
+                  </li>
+                </Link>
+              </ul>
+            ) : (
+              <ul>
+                {userLinks.map((link, index) => (
+                  <Link
+                    onClick={() => setOpenUserMenu(false)}
+                    key={index}
+                    href={link.route}
+                  >
+                    <li className="py-2 hover:bg-purple-200 rounded-md">
+                      {link.label}
+                    </li>
+                  </Link>
+                ))}
+                <li
+                  className="cursor-pointer py-2 hover:bg-purple-200 rounded-md"
+                  onClick={() => signOut()}
+                >
+                  Sign Out
+                </li>
+              </ul>
+            )}
+          </div>
+        )}
       </nav>
     </>
   );
