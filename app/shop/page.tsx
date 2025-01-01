@@ -1,4 +1,3 @@
-"use client";
 import Products from "@/components/Products";
 import { FetchProducts } from "../actions/getStripeProducts";
 

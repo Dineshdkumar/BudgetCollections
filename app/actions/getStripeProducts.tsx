@@ -1,4 +1,3 @@
-"use client";
 import Stripe from "stripe";
 
 export const FetchProducts = async () => {

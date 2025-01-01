@@ -1,5 +1,3 @@
-"use client";
-
 import { FetchProducts } from "@/app/actions/getStripeProducts";
 import ProductsCard from "./ProductsCard";
 import Link from "next/link";

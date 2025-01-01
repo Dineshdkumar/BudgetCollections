@@ -1,5 +1,3 @@
-"use client";
-
 import Map from "@/components/Map";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
