@@ -17,17 +17,25 @@ const ProductsCard = ({ product }: { product: ProductType }) => {
     toast.error("Please choose a size first");
   };
 
-  // Get the category from product metadata
   const category = product.metadata?.category;
 
-  // Determine the size options based on the category
+  const normalizeCategory = (category: string | undefined) =>
+    category ? category.trim().toLowerCase() : "";
+
   const getSizeOptions = (category: string | undefined) => {
-    switch (category) {
-      case "Pants":
+    const normalizedCategory = normalizeCategory(category);
+
+    switch (normalizedCategory) {
+      case "jeans":
+      case "trousers":
         return ["30", "32", "34", "36", "38"];
-      case "T-Shirts":
-      case "Formal Shirts":
-      case "Casual Shirts":
+      case "polo":
+      case "round neck":
+        return ["Small", "Medium", "Large", "XL"];
+      case "formals shirts":
+      case "plain shirts":
+      case "printed shirts":
+      case "checks shirts":
         return ["Small", "Medium", "Large", "XL"];
       default:
         return [];

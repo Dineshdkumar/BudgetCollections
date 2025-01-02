@@ -9,7 +9,17 @@ const Products: React.FC<{
   const [sortBy, setSortBy] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
-  const categories = ["T-Shirts", "Formal Shirts", "Pants", "Casual Shirts"];
+  // Updated categories
+  const categories = [
+    "Formals shirts",
+    "Plain shirts",
+    "Printed shirts",
+    "Checks shirts",
+    "Jeans",
+    "Trousers",
+    "Polo",
+    "Round Neck",
+  ];
 
   const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSortBy(e.target.value);
@@ -18,6 +28,10 @@ const Products: React.FC<{
   const handleCategoryChange = (category: string | null) => {
     setSelectedCategory(category);
   };
+
+  // Normalize category for comparison
+  const normalize = (value: string | undefined) =>
+    value ? value.trim().toLowerCase() : "";
 
   const sortProducts = (products: ProductType[]) => {
     if (sortBy === "Price Low-High") {
@@ -31,7 +45,8 @@ const Products: React.FC<{
 
   const filteredProducts = selectedCategory
     ? allProducts.filter(
-        (product) => product.metadata?.category === selectedCategory
+        (product) =>
+          normalize(product.metadata?.category) === normalize(selectedCategory)
       )
     : allProducts;
 
@@ -39,9 +54,53 @@ const Products: React.FC<{
 
   return (
     <section className="relative md:py-24 py-16 bg-gray-50">
-      <div className="main-container flex">
-        {/* Sidebar Filters */}
-        <aside className="w-1/4 p-6 bg-white shadow-lg rounded-lg">
+      <div className="main-container flex flex-col md:flex-row">
+        {/* Dropdown for mobile view */}
+        <div className="block md:hidden w-full mb-6">
+          <div className="flex flex-col gap-4">
+            {/* Category Dropdown */}
+            <div>
+              <label className="block font-medium text-lg text-gray-700 mb-2">
+                Filter by Category
+              </label>
+              <select
+                value={selectedCategory ?? ""}
+                onChange={(e) =>
+                  handleCategoryChange(
+                    e.target.value === "All Products" ? null : e.target.value
+                  )
+                }
+                className="w-full py-2 px-4 border border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-purple-500 text-gray-700"
+              >
+                <option value="All Products">All Products</option>
+                {categories.map((category) => (
+                  <option key={category} value={category}>
+                    {category}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Sort Dropdown */}
+            <div>
+              <label className="block font-medium text-lg text-gray-700 mb-2">
+                Sort by
+              </label>
+              <select
+                value={sortBy}
+                onChange={handleSortChange}
+                className="w-full py-2 px-4 border border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+              >
+                <option value="">Select</option>
+                <option value="Price Low-High">Price Low-High</option>
+                <option value="Price High-Low">Price High-Low</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        {/* Sidebar for Desktop */}
+        <aside className="hidden md:block w-1/4 p-6 bg-white shadow-lg rounded-lg">
           <h2 className="text-xl font-semibold text-gray-800 mb-4">Filters</h2>
           <ul className="space-y-4">
             <li
@@ -58,7 +117,8 @@ const Products: React.FC<{
               <li
                 key={category}
                 className={`cursor-pointer text-lg font-medium rounded-lg p-2 ${
-                  selectedCategory === category
+                  normalize(selectedCategory ?? undefined) ===
+                  normalize(category)
                     ? "bg-purple-600 text-white"
                     : "text-gray-700 hover:bg-purple-200"
                 }`}
@@ -71,7 +131,7 @@ const Products: React.FC<{
         </aside>
 
         {/* Main Product Section */}
-        <div className="w-3/4 pl-6">
+        <div className="md:w-3/4 w-full md:pl-6">
           {/* Heading Section */}
           <h2 className="text-2xl font-bold text-gray-800 mb-6">
             Showing {filteredProducts.length}{" "}
@@ -79,7 +139,7 @@ const Products: React.FC<{
           </h2>
 
           {/* Filter Section */}
-          <div className="md:flex justify-between items-center mb-8">
+          <div className="hidden md:flex justify-between items-center mb-8">
             <span className="font-semibold text-xl text-gray-800">
               Showing 1-{filteredProducts.length} of {allProducts.length} items
             </span>
@@ -89,8 +149,6 @@ const Products: React.FC<{
               <label className="font-medium text-lg text-gray-700 mr-3">
                 Sort by:
               </label>
-
-              {/* Custom Dropdown */}
               <div className="relative">
                 <select
                   value={sortBy}
@@ -110,9 +168,9 @@ const Products: React.FC<{
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
                       d="M19 9l-7 7-7-7"
                     ></path>
                   </svg>

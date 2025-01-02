@@ -20,7 +20,8 @@ const NewProducts = async () => {
             <span>View More &#8594;</span>
           </Link>
         </div>
-        <div className="grid lg:grid-cols-4 gap-5 grid-cols-2 mt-6">
+        {/* Adjusting the grid layout */}
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mt-6">
           {newArrivals.map((product) => (
             <ProductsCard key={product.id} product={product} />
           ))}
