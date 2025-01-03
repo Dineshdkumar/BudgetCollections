@@ -46,8 +46,8 @@ const ProductsCard = ({ product }: { product: ProductType }) => {
 
   return (
     <div className="relative flex flex-col items-center bg-white p-4 shadow-md rounded-lg border border-gray-300 transition-transform transform hover:scale-105 overflow-hidden">
-      <div className="relative group w-full">
-        <div className="w-full h-[300px] overflow-hidden relative rounded-md">
+      <div className="relative group w-full mb-4">
+        <div className="w-full aspect-w-1 aspect-h-1 overflow-hidden relative rounded-md">
           <Image
             src={product.image}
             width={300}

@@ -11,7 +11,7 @@ const Products: React.FC<{
 
   // Updated categories
   const categories = [
-    "Formals shirts",
+    "Formal shirts",
     "Plain shirts",
     "Printed shirts",
     "Checks shirts",
@@ -180,7 +180,7 @@ const Products: React.FC<{
           </div>
 
           {/* Product Grid */}
-          <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 grid-cols-1 gap-6">
+          <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 grid-cols-1 gap-4">
             {sortedProducts.length > 0 ? (
               sortedProducts.map((product) => (
                 <ProductsCard key={product.id} product={product} />
