@@ -50,7 +50,7 @@ const Hero = () => {
         {/* Promotional Banner */}
         <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-center z-20 bg-gradient-to-r from-red-500 to-yellow-500 px-8 py-4 rounded-full shadow-lg">
           <p className="text-xl md:text-2xl font-bold text-white animate-pulse">
-            🎉 Flat 60% OFF for Limited Members, Order Fast! 🎉
+            🎉 Flat 50% OFF for Limited Members, Order Fast! 🎉
           </p>
         </div>
       </div>

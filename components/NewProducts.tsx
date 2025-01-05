@@ -9,6 +9,7 @@ const NewProducts = async () => {
   const newArrivals = products.filter(
     (product) => product.metadata?.new === "true"
   );
+
   return (
     <section className="py-10 border-t">
       <div className="main-container">
@@ -20,8 +21,8 @@ const NewProducts = async () => {
             <span>View More &#8594;</span>
           </Link>
         </div>
-        {/* Adjusting the grid layout */}
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mt-6">
+        {/* Grid layout updated */}
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6">
           {newArrivals.map((product) => (
             <ProductsCard key={product.id} product={product} />
           ))}

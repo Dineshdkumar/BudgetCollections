@@ -4,6 +4,7 @@ import {
   FaSquareXTwitter,
   FaSquareInstagram,
   FaSquareSnapchat,
+  FaSquareWhatsapp,
 } from "react-icons/fa6";
 import { TbBracketsAngle } from "react-icons/tb";
 import { FaFacebookSquare } from "react-icons/fa";
@@ -30,10 +31,22 @@ const Footer = () => {
           </ul>
 
           <div className="flex gap-5 text-white flex-1 justify-end text-2xl">
-            <FaSquareXTwitter />
-            <FaFacebookSquare />
-            <FaSquareInstagram />
-            <FaSquareSnapchat />
+            <a
+              href="https://www.instagram.com/budget.collections_?igsh=YzJqNXZ5NGJmaGNu"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-pink-500 hover:text-pink-700 transition-colors"
+            >
+              <FaSquareInstagram />
+            </a>
+            <a
+              href="https://wa.me/919491915275"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-green-500 hover:text-green-700 transition-colors"
+            >
+              <FaSquareWhatsapp />
+            </a>
           </div>
         </div>
 

@@ -180,7 +180,7 @@ const Products: React.FC<{
           </div>
 
           {/* Product Grid */}
-          <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 grid-cols-1 gap-4">
+          <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 grid-cols-2 gap-4">
             {sortedProducts.length > 0 ? (
               sortedProducts.map((product) => (
                 <ProductsCard key={product.id} product={product} />
